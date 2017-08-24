@@ -235,7 +235,6 @@ class SelectField extends Component {
     super(props, context)
     const { children, value, multiple, showAutocompleteThreshold } = props
     const itemsLength = this.getChildrenLength(children)
-    console.log(this.props.isOpen, 'isOpen')
     this.state = {
       isOpen: this.props.isOpen || false,
       isFocused: false,
