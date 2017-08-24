@@ -247,6 +247,9 @@ class SelectField extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
+    If(this.props.isOpen !== nextProps.isOpen) {
+      this.setState({isOpen: nextProps.isOpen});
+    }
     if (!areEqual(nextProps.value, this.state.selectedItems)) {
       this.setState({ selectedItems: nextProps.value })
     }
