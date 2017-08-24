@@ -236,7 +236,7 @@ class SelectField extends Component {
     const { children, value, multiple, showAutocompleteThreshold } = props
     const itemsLength = this.getChildrenLength(children)
     this.state = {
-      isOpen: false,
+      isOpen: props.isOpen || false,
       isFocused: false,
       itemsLength,
       showAutocomplete: (itemsLength > showAutocompleteThreshold) || false,
@@ -293,7 +293,7 @@ class SelectField extends Component {
     const { onChange, name } = this.props
     onChange(this.state.selectedItems, name)
     if (reason) this.setState({ isFocused: false }) // if reason === 'clickaway' or 'offscreen'
-    this.setState({ isOpen: false, searchText: '' }, () => !reason && this.root.focus())
+    this.setState({ isOpen: this.props.isOpen || false, searchText: '' }, () => !reason && this.root.focus())
   }
 
   openMenu () {
@@ -685,6 +685,7 @@ SelectField.propTypes = {
   hintText: PropTypes.string,
   hintTextAutocomplete: PropTypes.string,
   noMatchFound: PropTypes.string,
+  isOpen: PropTypes.bool,
   showAutocompleteThreshold: PropTypes.number,
   elementHeight: PropTypes.oneOfType([
     PropTypes.number,
@@ -731,6 +732,7 @@ SelectField.defaultProps = {
   unCheckedIcon: <UnCheckedIcon style={{ top: 'calc(50% - 12px)' }} />,
   menuCloseButton: null,
   canAutoPosition: true,
+  isOpen: false,
   multiple: false,
   disabled: false,
   nb2show: 5,
