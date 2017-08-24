@@ -289,11 +289,11 @@ class SelectField extends Component {
     if (!this.state.isOpen) this.setState({ isFocused: false })
   }
 
-  closeMenu = (reason) => {
+  closeMenu = (reason, dontClose) => {
     const { onChange, name } = this.props
     onChange(this.state.selectedItems, name)
     if (reason) this.setState({ isFocused: false }) // if reason === 'clickaway' or 'offscreen'
-    this.setState({ isOpen: this.props.isOpen || false, searchText: '' }, () => !reason && this.root.focus())
+    this.setState({ isOpen: dontClose || false, searchText: '' }, () => !reason && this.root.focus())
   }
 
   openMenu () {
@@ -367,7 +367,7 @@ class SelectField extends Component {
       this.clearTextField(() => this.focusTextField())
     } else {
       const updatedValue = areEqual(selectedItems, selectedItem) ? null : selectedItem
-      this.setState({ selectedItems: updatedValue }, () => this.closeMenu())
+      this.setState({ selectedItems: updatedValue }, () => this.closeMenu(null, true))
     }
   }
 
